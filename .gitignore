@@ -1,5 +1,6 @@
 Results/
 Datasets
+Datasets/*
 wandb/
 tmp
 __pycache__/

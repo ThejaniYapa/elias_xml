@@ -31,11 +31,45 @@ Datasets/
     ├── Y.trn.npz # train relevance matrix (stored in scipy sparse npz format), num_train x num_labels
     └── Y.tst.npz # test relevance matrix (stored in scipy sparse npz format), num_test x num_labels
 </pre>
+
+Creating dataset for LF-Amazon-131K
+```
+mkdir Datasets
+cd Datasets
+pip install gdown
+# Downloading from https://drive.google.com/file/d/1YNGEifTHu4qWBmCaLEBfjx07qRqw9DVW/view
+gdown --id 1YNGEifTHu4qWBmCaLEBfjx07qRqw9DVW
+unzip LF-Amazon-131K.bow.zip
+
+export data_dir=LF-Amazon-131K
+perl convert_format.pl $data_dir/train.txt $data_dir/trn_X_Xf.txt $data_dir/trn_X_Y.txt
+perl convert_format.pl $data_dir/test.txt $data_dir/tst_X_Xf.txt $data_dir/tst_X_Y.txt
+mv $data_dir/trn_X_Xf.txt $data_dir/raw/trn_X.txt
+mv $data_dir/trn_X_Y.txt $data_dir/raw/trn_X.txt
+
+```
+
+Creating dataset for Amazon670K.bow.zip
+```
+mkdir Datasets
+cd Datasets
+pip install gdown
+# Downloading from https://drive.google.com/file/d/1TLaXCNB_IDtLhk4ycOnyud0PswWAW6hR/edit
+gdown --id 1TLaXCNB_IDtLhk4ycOnyud0PswWAW6hR
+unzip Amazon670K.bow.zip
+
+export data_dir=Amazon670K
+perl convert_format.pl $data_dir/train.txt $data_dir/trn_X.txt $data_dir/trn_X_Y.txt
+perl convert_format.pl $data_dir/test.txt $data_dir/tst_X.txt $data_dir/tst_X_Y.txt
+mv $data_dir/trn_X.txt $data_dir/raw/trn_X.txt
+mv $data_dir/trn_X.txt $data_dir/raw/trn_X.txt
+```
+
 Before running the training/testing the default code expects you to convert the input features to BERT's (or any text transformer) tokenized input indices. You can achieve that by running:
 ```shell
-dataset="amazon-670k"
-tf-max-len="128" # Use 32 for short-text datasets
-tf-token-type="bert-base-uncased" # You can use any huggingface pre-trained tokenization
+export dataset=Amazon670K
+export tf_max_len=128 # Use 32 for short_text datasets
+export tf_token_type=bert-base-uncased # You can use any huggingface pre-trained tokenization
 ./prepare.sh ${dataset-name} ${tf-max-len} ${tf-token-type}
 ```
 ## Evaluating ELIAS

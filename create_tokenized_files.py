@@ -68,6 +68,7 @@ parser.add_argument("--tf-token-type", type=str, help="Tokenizer to use", defaul
 parser.add_argument("--num-threads", type=int, help="Number of threads to use", default=32)
 
 args = parser.parse_args()
+print("args > data_path:",args.data_path," tf_max_len:",args.tf_max_len," tf_token_type:",args.tf_token_type)
 
 lines = [x.strip() for x in open(f'{args.data_path}', "r", encoding="utf-8").readlines()]
 print(f'Read {len(lines)} lines')
